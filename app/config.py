@@ -182,14 +182,13 @@ AWS_SECRET_ACCESS_KEY = get_env_variable("AWS_SECRET_ACCESS_KEY", "")
 
 def init_embeddings(provider, model):
     if provider == EmbeddingsProvider.OPENAI:
-        from langchain_openai import OpenAIEmbeddings
+        from embeddings import OpenAIEmbeddings
 
         return OpenAIEmbeddings(
             model=model,
-            api_key=RAG_OPENAI_API_KEY,
+            openai_api_key=RAG_OPENAI_API_KEY,
             openai_api_base=RAG_OPENAI_BASEURL,
-            openai_proxy=RAG_OPENAI_PROXY,
-            encoding_format='float',
+            batch_size=512,
 
         )
     elif provider == EmbeddingsProvider.AZURE:
